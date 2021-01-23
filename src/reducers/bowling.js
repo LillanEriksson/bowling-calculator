@@ -1,3 +1,5 @@
+/* eslint-disable no-tabs */
+/* eslint-disable indent */
 /* eslint-disable linebreak-style */
 import { createSlice } from '@reduxjs/toolkit';
 
@@ -6,6 +8,9 @@ const initialState = {
 	roll2: null,
 	currentRoll: {},
 	historicRolls: [],
+	currentScore: {},
+	allScores: [],
+	totalScore: null,
 };
 
 export const bowling = createSlice({
@@ -20,14 +25,27 @@ export const bowling = createSlice({
 			const roll2 = action.payload;
 			store.roll2 = roll2;
 		},
-		setCurrentRound: (store, action) => {
-			const newRolls = {
-				1: store.roll1,
-				2: store.roll2,
-			};
-			const rollsArray = [...store.historicRolls, newRolls];
-			store.historicRolls = rollsArray;
+		setCurrentRound: (store) => {
+			if (store.historicRolls.length < 9) {
+				const currentScore = { score: store.roll1 + store.roll2 };
+				store.currentScore = currentScore;
+				store.allScores = [...store.allScores, currentScore.score];
+
+				const newRolls = {
+					roll1: store.roll1,
+					roll2: store.roll2,
+					score: currentScore.score,
+				};
+
+				const rollsArray = [...store.historicRolls, newRolls];
+				store.historicRolls = rollsArray;
+				store.roll1 = null;
+				store.roll2 = null;
+			}
 		},
-		calculateTotalScore: (store, action) => {},
+		calculateTotalScore: (store) => {
+			const totalScore = store.allScores.reduce((a, b) => a + b);
+			store.totalScore = totalScore;
+		},
 	},
 });

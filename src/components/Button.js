@@ -1,31 +1,44 @@
+/* eslint-disable linebreak-style */
+/* eslint-disable no-tabs */
+/* eslint-disable react/jsx-indent-props */
+/* eslint-disable indent */
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
+import styled from 'styled-components';
 
 import { bowling } from '../reducers/bowling';
 
-export const Button = ({ number, text, name }) => {
+export const Button = ({ number, text, name, roll1, roll2, key }) => {
 	const dispatch = useDispatch();
-	const roll1 = useSelector((store) => store.bowling.roll1);
-	const roll2 = useSelector((store) => store.bowling.roll2);
+
+	const handleNext = () => {
+		dispatch(bowling.actions.setCurrentRound());
+		dispatch(bowling.actions.calculateTotalScore());
+	};
 
 	const handleRoll = () => {
 		if (roll1 === null) {
 			dispatch(bowling.actions.setRoll1(number));
+			if (number === 10) {
+				handleNext();
+			}
 		} else if (roll2 === null) {
 			dispatch(bowling.actions.setRoll2(number));
 		}
 	};
 
-	const handleNext = () => {
-		dispatch(bowling.actions.setCurrentRound());
-	};
-
 	return (
-		<button
+		<StyledButton
 			type="button"
 			name={name}
-			onClick={name === 'Next' ? handleNext : handleRoll}>
+			onClick={name === 'Next' ? handleNext : () => handleRoll()}>
 			{text}
-		</button>
+		</StyledButton>
 	);
 };
+
+// styling
+const StyledButton = styled.button`
+	border-radius: 12px;
+	margin: 5px;
+`;
