@@ -24,14 +24,12 @@ export const Button = ({ number, text, name, roll1, roll2, key }) => {
 			}
 		} else if (roll2 === null) {
 			dispatch(bowling.actions.setRoll2(number));
+			handleNext();
 		}
 	};
 
 	return (
-		<StyledButton
-			type="button"
-			name={name}
-			onClick={name === 'Next' ? handleNext : () => handleRoll()}>
+		<StyledButton type="button" name={name} onClick={() => handleRoll()}>
 			{text}
 		</StyledButton>
 	);

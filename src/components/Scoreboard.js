@@ -37,7 +37,6 @@ export const Scoreboard = () => {
 				})}
 				<TotalScore />
 			</Scorecard>
-			<Button text="Next round" name="Next" />
 		</Container>
 	);
 };

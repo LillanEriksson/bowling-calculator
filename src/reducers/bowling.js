@@ -30,20 +30,20 @@ export const bowling = createSlice({
 				const currentScore = { score: store.roll1 + store.roll2 };
 				store.currentScore = currentScore;
 				store.allScores = [...store.allScores, currentScore.score];
-
-				const newRolls = {
+				const newRoll = {
 					roll1: store.roll1,
 					roll2: store.roll2,
-					score: currentScore.score,
+					score: store.currentScore.score,
 				};
 
-				const rollsArray = [...store.historicRolls, newRolls];
+				const rollsArray = [...store.historicRolls, newRoll];
 				store.historicRolls = rollsArray;
+
 				store.roll1 = null;
 				store.roll2 = null;
 			}
 		},
-		calculateTotalScore: (store) => {
+		calculateTotalScore: (store, action) => {
 			const totalScore = store.allScores.reduce((a, b) => a + b);
 			store.totalScore = totalScore;
 		},
