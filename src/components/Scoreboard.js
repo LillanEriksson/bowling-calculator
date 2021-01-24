@@ -18,16 +18,19 @@ export const Scoreboard = () => {
 	return (
 		<Container>
 			<div>
-				{pinsArray.map((item, index) => (
-					<Button
-						key={index}
-						text={item}
-						number={item}
-						name="Numbers"
-						roll1={roll1}
-						roll2={roll2}
-					/>
-				))}
+				{pinsArray.map((item, index) =>
+					roll1 + item <= 10 ? (
+						<Button
+							key={index}
+							text={item}
+							number={item}
+							roll1={roll1}
+							roll2={roll2}
+						/>
+					) : (
+						<></>
+					)
+				)}
 			</div>
 
 			<Scorecard>

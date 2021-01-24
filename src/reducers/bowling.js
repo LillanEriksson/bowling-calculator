@@ -43,6 +43,7 @@ export const bowling = createSlice({
 				store.roll2 = null;
 			}
 		},
+
 		calculateTotalScore: (store, action) => {
 			const totalScore = store.allScores.reduce((a, b) => a + b);
 			store.totalScore = totalScore;

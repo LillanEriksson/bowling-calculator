@@ -1,5 +1,5 @@
 /* eslint-disable linebreak-style */
-import React from 'react';
+import React, { useSelector } from 'react';
 import styled from 'styled-components';
 
 export const Round = ({ roll1, roll2 }) => {

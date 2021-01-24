@@ -8,7 +8,7 @@ import styled from 'styled-components';
 
 import { bowling } from '../reducers/bowling';
 
-export const Button = ({ number, text, name, roll1, roll2, key }) => {
+export const Button = ({ number, text, roll1, roll2 }) => {
 	const dispatch = useDispatch();
 
 	const handleNext = () => {
@@ -29,7 +29,7 @@ export const Button = ({ number, text, name, roll1, roll2, key }) => {
 	};
 
 	return (
-		<StyledButton type="button" name={name} onClick={() => handleRoll()}>
+		<StyledButton type="button" onClick={() => handleRoll()}>
 			{text}
 		</StyledButton>
 	);
@@ -39,4 +39,7 @@ export const Button = ({ number, text, name, roll1, roll2, key }) => {
 const StyledButton = styled.button`
 	border-radius: 12px;
 	margin: 5px;
+  
+  }
+ }
 `;
