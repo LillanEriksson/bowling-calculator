@@ -1,8 +1,11 @@
 /* eslint-disable linebreak-style */
-import React, { useSelector } from 'react';
+import React from 'react';
+import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-export const Round = ({ roll1, roll2 }) => {
+export const Round = ({ roll1, roll2, index, lastScore, totalScore }) => {
+	const allScores = useSelector((store) => store.bowling.allScores);
+	const currentScore = useSelector((store) => store.bowling.currentScore.score);
 	const roundScore = roll1 + roll2;
 
 	return (
@@ -11,7 +14,13 @@ export const Round = ({ roll1, roll2 }) => {
 				<Roll>{roll1}</Roll>
 				<Roll>{roll2}</Roll>
 			</RollsContainer>
-			<Score>{roundScore}</Score>
+			<Score>
+				{index === 0
+					? roundScore
+					: index >= 1
+					? roundScore + lastScore
+					: totalScore}
+			</Score>
 		</RoundContainer>
 	);
 };

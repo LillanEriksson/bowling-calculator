@@ -6,7 +6,6 @@ import { createSlice } from '@reduxjs/toolkit';
 const initialState = {
 	roll1: null,
 	roll2: null,
-	currentRoll: {},
 	historicRolls: [],
 	currentScore: {},
 	allScores: [],
@@ -36,17 +35,16 @@ export const bowling = createSlice({
 					score: store.currentScore.score,
 				};
 
-				const rollsArray = [...store.historicRolls, newRoll];
-				store.historicRolls = rollsArray;
+				store.historicRolls = [...store.historicRolls, newRoll];
 
 				store.roll1 = null;
 				store.roll2 = null;
 			}
 		},
 
-		calculateTotalScore: (store, action) => {
+		calculateTotalScore: (store) => {
 			const totalScore = store.allScores.reduce((a, b) => a + b);
-			store.totalScore = totalScore;
+			store.totalScore = totalScore + store.currentScore.score;
 		},
 	},
 });
