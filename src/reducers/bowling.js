@@ -7,7 +7,7 @@ const initialState = {
 	roll1: null,
 	roll2: null,
 	historicRolls: [],
-	currentScore: {},
+	currentScore: null,
 	allScores: [],
 	totalScore: null,
 };
@@ -25,14 +25,16 @@ export const bowling = createSlice({
 			store.roll2 = roll2;
 		},
 		setCurrentRound: (store) => {
-			if (store.historicRolls.length < 9) {
-				const currentScore = { score: store.roll1 + store.roll2 };
+			if (store.historicRolls.length <= 8) {
+				const currentScore = store.roll1 + store.roll2;
+
 				store.currentScore = currentScore;
-				store.allScores = [...store.allScores, currentScore.score];
+
+				store.allScores = [...store.allScores, currentScore];
 				const newRoll = {
 					roll1: store.roll1,
 					roll2: store.roll2,
-					score: store.currentScore.score,
+					score: store.currentScore,
 				};
 
 				store.historicRolls = [...store.historicRolls, newRoll];
@@ -41,10 +43,13 @@ export const bowling = createSlice({
 				store.roll2 = null;
 			}
 		},
+		setStrike: (store, action) => {
+			store.currentScore += action.payload;
+		},
 
 		calculateTotalScore: (store) => {
 			const totalScore = store.allScores.reduce((a, b) => a + b);
-			store.totalScore = totalScore + store.currentScore.score;
+			store.totalScore = totalScore;
 		},
 	},
 });

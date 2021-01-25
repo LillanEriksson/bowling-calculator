@@ -3,10 +3,23 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-export const Round = ({ roll1, roll2, index, lastScore, totalScore }) => {
+export const Round = ({ roll1, roll2, round }) => {
 	const allScores = useSelector((store) => store.bowling.allScores);
-	const currentScore = useSelector((store) => store.bowling.currentScore.score);
+
 	const roundScore = roll1 + roll2;
+
+	const scoreCalc = () => {
+		if (allScores.length < 1) {
+			return roundScore;
+		} else if (allScores.length >= 1) {
+			const slicedScore = allScores.slice(0, round);
+			const sum = (accumulator, number) => {
+				return accumulator + number;
+			};
+
+			return slicedScore.reduce(sum, roundScore);
+		}
+	};
 
 	return (
 		<RoundContainer>
@@ -14,13 +27,7 @@ export const Round = ({ roll1, roll2, index, lastScore, totalScore }) => {
 				<Roll>{roll1}</Roll>
 				<Roll>{roll2}</Roll>
 			</RollsContainer>
-			<Score>
-				{index === 0
-					? roundScore
-					: index >= 1
-					? roundScore + lastScore
-					: totalScore}
-			</Score>
+			<Score>{scoreCalc()}</Score>
 		</RoundContainer>
 	);
 };
