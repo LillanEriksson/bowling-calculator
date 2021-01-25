@@ -1,6 +1,3 @@
-/* eslint-disable no-tabs */
-/* eslint-disable indent */
-/* eslint-disable linebreak-style */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {

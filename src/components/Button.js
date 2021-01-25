@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable no-tabs */
-/* eslint-disable react/jsx-indent-props */
-/* eslint-disable indent */
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
