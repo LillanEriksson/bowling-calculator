@@ -1,5 +1,3 @@
-/* eslint-disable indent */
-/* eslint-disable linebreak-style */
 import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
@@ -14,6 +12,7 @@ export const Scoreboard = () => {
 	const historicRolls = useSelector((store) => store.bowling.historicRolls);
 	const totalScore = useSelector((store) => store.bowling.totalScore);
 
+	// array for the bowling-pins so I can map over it to make buttons
 	const pinsArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 	return (
@@ -39,7 +38,7 @@ export const Scoreboard = () => {
 							key={index}
 							roll1={item.roll1}
 							roll2={item.roll2}
-							round={index}
+							index={index}
 						/>
 					);
 				})}

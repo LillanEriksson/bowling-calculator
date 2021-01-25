@@ -3,20 +3,20 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
-export const Round = ({ roll1, roll2, round }) => {
+export const Round = ({ roll1, roll2, index }) => {
 	const allScores = useSelector((store) => store.bowling.allScores);
 
 	const roundScore = roll1 + roll2;
 
+	// calculates the score for each round
 	const scoreCalc = () => {
 		if (allScores.length < 1) {
 			return roundScore;
 		} else if (allScores.length >= 1) {
-			const slicedScore = allScores.slice(0, round);
+			const slicedScore = allScores.slice(0, index);
 			const sum = (accumulator, number) => {
 				return accumulator + number;
 			};
-
 			return slicedScore.reduce(sum, roundScore);
 		}
 	};

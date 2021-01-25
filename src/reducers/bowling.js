@@ -27,27 +27,30 @@ export const bowling = createSlice({
 		setCurrentRound: (store) => {
 			if (store.historicRolls.length <= 8) {
 				const currentScore = store.roll1 + store.roll2;
-
+				// the score for one round into store
 				store.currentScore = currentScore;
-
+				// adds the score for a round into a array of all scores from all rounds
 				store.allScores = [...store.allScores, currentScore];
+				// create a object for the historicRolls array that saves rolls and total score for round
 				const newRoll = {
 					roll1: store.roll1,
 					roll2: store.roll2,
 					score: store.currentScore,
 				};
-
+				// the object with the info into the history-array
 				store.historicRolls = [...store.historicRolls, newRoll];
-
+				// set the values of roll1 & roll 2 to null
 				store.roll1 = null;
 				store.roll2 = null;
 			}
 		},
 		setStrike: (store, action) => {
+			// not sure how to fix this
 			store.currentScore += action.payload;
 		},
 
 		calculateTotalScore: (store) => {
+			// this is not accurate...yet
 			const totalScore = store.allScores.reduce((a, b) => a + b);
 			store.totalScore = totalScore;
 		},
