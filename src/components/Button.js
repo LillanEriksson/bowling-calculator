@@ -1,11 +1,14 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 import { bowling } from '../reducers/bowling';
 
 export const Button = ({ number, text, roll1, roll2 }) => {
 	const dispatch = useDispatch();
+
+	const historicRolls = useSelector((store) => store.bowling.historicRolls);
+	console.log(historicRolls.length);
 
 	// go to next round and set the whole round to state
 	const handleNext = () => {

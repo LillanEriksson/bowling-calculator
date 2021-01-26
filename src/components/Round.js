@@ -1,5 +1,5 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
 export const Round = ({ roll1, roll2, index }) => {
@@ -7,16 +7,26 @@ export const Round = ({ roll1, roll2, index }) => {
 
 	const roundScore = roll1 + roll2;
 
-	// calculates the score for each round
+	// calculates the score for each round and adds points for strike and block
+	//not working
 	const scoreCalc = () => {
 		if (allScores.length < 1) {
-			return roundScore;
+			if (roll1 === 10 || roll1 + roll2 === 10) {
+				return roundScore + 10;
+			} else {
+				return roundScore;
+			}
 		} else if (allScores.length >= 1) {
 			const slicedScore = allScores.slice(0, index);
 			const sum = (accumulator, number) => {
 				return accumulator + number;
 			};
-			return slicedScore.reduce(sum, roundScore);
+			const score = slicedScore.reduce(sum, roundScore);
+			if (roll1 === 10 || roll1 + roll2 === 10) {
+				return score + 10;
+			} else {
+				return score;
+			}
 		}
 	};
 

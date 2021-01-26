@@ -7,6 +7,8 @@ const initialState = {
 	currentScore: null,
 	allScores: [],
 	totalScore: null,
+	strike: null,
+	block: null,
 };
 
 export const bowling = createSlice({
@@ -41,10 +43,22 @@ export const bowling = createSlice({
 				store.roll2 = null;
 			}
 		},
-		setStrike: (store, action) => {
-			// not sure how to fix this
-			store.currentScore += action.payload;
-		},
+		// setStrike: (store, action) => {
+		// 	// not sure how to fix this
+		// 	const strike = action.payload;
+		// 	store.strike = strike;
+
+		// 	const currentScore = store.currentScore;
+
+		// 	const newScore = strike + currentScore;
+
+		// 	store.currentScore = newScore;
+		// },
+
+		// setBlock: (store, action) => {
+		// 	const block = action.payload;
+		// 	store.block = block;
+		// },
 
 		calculateTotalScore: (store) => {
 			// this is not accurate...yet
