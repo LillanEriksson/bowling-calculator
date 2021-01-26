@@ -7,27 +7,34 @@ import { bowling } from '../reducers/bowling';
 export const Button = ({ number, text, roll1, roll2 }) => {
 	const dispatch = useDispatch();
 
-	const historicRolls = useSelector((store) => store.bowling.historicRolls);
-	console.log(historicRolls.length);
+	const currentScore = useSelector((store) => store.bowling.currentScore);
 
 	// go to next round and set the whole round to state
 	const handleNext = () => {
 		dispatch(bowling.actions.setCurrentRound());
+		dispatch(bowling.actions.addStrikeorBlockPoints());
 		dispatch(bowling.actions.calculateTotalScore());
 	};
 
 	// set the rolls to state
 	const handleRoll = () => {
+		dispatch(bowling.actions.setStrike(0));
+		dispatch(bowling.actions.setBlock(0));
 		if (roll1 === null) {
 			dispatch(bowling.actions.setRoll1(number));
 			if (number === 10) {
 				dispatch(bowling.actions.setRoll1(number));
-				// dispatch(bowling.actions.setStrike(10));
+				dispatch(bowling.actions.setStrike(10));
 				handleNext();
 			}
 		} else if (roll2 === null) {
 			dispatch(bowling.actions.setRoll2(number));
-			handleNext();
+			if (currentScore === 10) {
+				dispatch(bowling.actions.setBlock(10));
+				handleNext();
+			} else {
+				handleNext();
+			}
 		}
 	};
 

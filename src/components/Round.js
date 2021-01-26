@@ -10,23 +10,14 @@ export const Round = ({ roll1, roll2, index }) => {
 	// calculates the score for each round and adds points for strike and block
 	//not working
 	const scoreCalc = () => {
-		if (allScores.length < 1) {
-			if (roll1 === 10 || roll1 + roll2 === 10) {
-				return roundScore + 10;
-			} else {
-				return roundScore;
-			}
-		} else if (allScores.length >= 1) {
+		if (index === 0) {
+			return allScores[0];
+		} else {
 			const slicedScore = allScores.slice(0, index);
 			const sum = (accumulator, number) => {
 				return accumulator + number;
 			};
-			const score = slicedScore.reduce(sum, roundScore);
-			if (roll1 === 10 || roll1 + roll2 === 10) {
-				return score + 10;
-			} else {
-				return score;
-			}
+			return slicedScore.reduce(sum, roundScore);
 		}
 	};
 

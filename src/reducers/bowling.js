@@ -6,9 +6,9 @@ const initialState = {
 	historicRolls: [],
 	currentScore: null,
 	allScores: [],
-	totalScore: null,
-	strike: null,
-	block: null,
+	totalScore: 0,
+	strike: 0,
+	block: 0,
 };
 
 export const bowling = createSlice({
@@ -24,7 +24,7 @@ export const bowling = createSlice({
 			store.roll2 = roll2;
 		},
 		setCurrentRound: (store) => {
-			if (store.historicRolls.length <= 8) {
+			if (store.historicRolls.length <= 9) {
 				const currentScore = store.roll1 + store.roll2;
 				// the score for one round into store
 				store.currentScore = currentScore;
@@ -43,22 +43,27 @@ export const bowling = createSlice({
 				store.roll2 = null;
 			}
 		},
-		// setStrike: (store, action) => {
-		// 	// not sure how to fix this
-		// 	const strike = action.payload;
-		// 	store.strike = strike;
+		setStrike: (store, action) => {
+			// not sure how to fix this
+			const strike = action.payload;
+			store.strike = strike;
+		},
 
-		// 	const currentScore = store.currentScore;
+		setBlock: (store, action) => {
+			const block = action.payload;
+			store.block = block;
+		},
+		addStrikeorBlockPoints: (store, action) => {
+			const strike = store.strike;
+			const block = store.block;
 
-		// 	const newScore = strike + currentScore;
+			const itemToUpdate = store.allScores.length - 1;
+			store.allScores[itemToUpdate] += strike;
+			store.allScores[itemToUpdate] += block;
 
-		// 	store.currentScore = newScore;
-		// },
-
-		// setBlock: (store, action) => {
-		// 	const block = action.payload;
-		// 	store.block = block;
-		// },
+			store.block = 0;
+			store.strike = 0;
+		},
 
 		calculateTotalScore: (store) => {
 			// this is not accurate...yet
